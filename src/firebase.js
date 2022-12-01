@@ -5,7 +5,7 @@ import { getFirestore } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = require("./credentials.js");
+import firebaseConfig from "./credentials";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
