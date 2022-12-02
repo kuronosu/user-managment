@@ -5,6 +5,7 @@ import {
   updateDoc,
   doc,
   deleteDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -17,13 +18,13 @@ export async function createUser(user) {
   }
 }
 
-export async function getUsers() {
-  try {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    return querySnapshot.docs.map((doc) => doc.data());
-  } catch (e) {
-    throw e;
-  }
+export function observeUsers(next, error) {
+  return onSnapshot(collection(db, "users"), {
+    next: (querySnapshot) =>
+      next(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))),
+    complete: () => console.log("complete"),
+    error: error,
+  });
 }
 
 export async function updateUser(id, user) {

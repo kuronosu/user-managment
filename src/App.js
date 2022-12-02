@@ -1,83 +1,62 @@
-import logo from "./logo.svg";
 import "./App.css";
 import React, { Fragment, useEffect, useState } from "react";
-import { createUser, getUsers } from "./firestore";
+import { createUser, observeUsers } from "./firestore";
+import UserList from "./Components/UserList";
+import UserForm from "./Components/UserForm";
+import { MdAdd } from "react-icons/md";
+
+function Form() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState(0);
+  return (
+    <div>
+      <label>Nombre</label>
+      <input
+        type="text"
+        placeholder="Nombre"
+        onChange={(e) => setName(e.target.value)}
+      />
+      <label>Email</label>
+      <input
+        type="text"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <label>Telefono</label>
+      <input
+        type="number"
+        placeholder="Telefono"
+        onChange={(e) => setPhone(e.target.value)}
+      />
+    </div>
+  );
+}
 
 function App() {
-  const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefono, setTelefono] = useState(0);
   const [users, setUsers] = useState([]);
+  const [mode, setMode] = useState("list");
 
-  useEffect(() => {
-    getUsers().then((users) => setUsers(users));
-  }, []);
-
-  function Modificar() {
-    console.log("Modificar");
-  }
-
-  function Eliminar() {
-    console.log("Eliminar");
-  }
-
-  function Modificar() {
-    console.log("Modificar");
-  }
-
-  function Eliminar() {
-    console.log("Eliminar");
-  }
-
+  useEffect(() => observeUsers((users) => setUsers(users)), []);
   return (
-    <Fragment>
-      <div>
-        <label>Nombre</label>
-        <input
-          type="text"
-          placeholder="Nombre"
-          onChange={(e) => {
-            setNombre(e.target.value);
-          }}
-        />
-        <label>Email</label>
-        <input
-          type="text"
-          placeholder="Email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <label>Telefono</label>
-        <input
-          type="number"
-          placeholder="Telefono"
-          onChange={(e) => {
-            setTelefono(e.target.value);
-          }}
+    <div className="w-full h-full bg-[#121212] grid place-items-center">
+      <div className="bg-[#1e1e1e] p-8 rounded-lg shadow-lg w-4/6 h-2/4">
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-3xl">Manage Users</h1>
+          <MdAdd
+            size={34}
+            className="hover:rotate-45 duration-150 p-1 m-1 cursor-pointer"
+            onClick={() => setMode("create")}
+          />
+        </div>
+        <UserList
+          users={users}
+          onEdit={() => console.log("Edit")}
+          onDelete={() => console.log("Delete")}
         />
       </div>
-      <div>
-        <button
-          onClick={() => {
-            createUser({ nombre, email, telefono }).then(() => {
-              setUsers((prev) => [...prev, { nombre, email, telefono }]);
-            });
-          }}
-        >
-          Agregar
-        </button>
-      </div>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            <span>{user.name}</span>
-            <button onClick={Modificar}>Modificar</button>
-            <button onClick={Eliminar}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
-    </Fragment>
+      {/* <UserForm /> */}
+    </div>
   );
 }
 
