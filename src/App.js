@@ -1,9 +1,10 @@
 import "./App.css";
-import React, { Fragment, useEffect, useState } from "react";
-import { createUser, observeUsers } from "./firestore";
-import UserList from "./Components/UserList";
-import UserForm from "./Components/UserForm";
-import { MdAdd } from "react-icons/md";
+import React, { useEffect, useState } from "react";
+import { observeUsers } from "./firestore";
+import { RecoilRoot } from "recoil";
+import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import HomePage from "./routes/Home";
+import Root from "./routes/root";
 
 function Form() {
   const [name, setName] = useState("");
@@ -33,30 +34,18 @@ function Form() {
   );
 }
 
-function App() {
-  const [users, setUsers] = useState([]);
-  const [mode, setMode] = useState("list");
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+  },
+]);
 
-  useEffect(() => observeUsers((users) => setUsers(users)), []);
+function App() {
   return (
-    <div className="w-full h-full bg-[#121212] grid place-items-center">
-      <div className="bg-[#1e1e1e] p-8 rounded-lg shadow-lg w-4/6 h-2/4">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-3xl">Manage Users</h1>
-          <MdAdd
-            size={34}
-            className="hover:rotate-45 duration-150 p-1 m-1 cursor-pointer"
-            onClick={() => setMode("create")}
-          />
-        </div>
-        <UserList
-          users={users}
-          onEdit={() => console.log("Edit")}
-          onDelete={() => console.log("Delete")}
-        />
-      </div>
-      {/* <UserForm /> */}
-    </div>
+    <RecoilRoot>
+      <RouterProvider router={router} />
+    </RecoilRoot>
   );
 }
 
