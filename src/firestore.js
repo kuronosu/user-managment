@@ -5,6 +5,8 @@ import {
   doc,
   deleteDoc,
   onSnapshot,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -18,7 +20,7 @@ export async function createUser(user) {
 }
 
 export function observeUsers(next, error) {
-  return onSnapshot(collection(db, "users"), {
+  return onSnapshot(query(collection(db, "users"), orderBy("name")), {
     next: (querySnapshot) =>
       next(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))),
     complete: () => console.log("complete"),
