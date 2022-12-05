@@ -7,18 +7,22 @@ import Root from "./routes/root";
 import { useUserStateFunctions } from "./store";
 import ErrorPage from "./routes/ErrorPage";
 import UserPage, { loader as userLoader } from "./routes/user";
+import UserForm from "./Components/UserForm";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
-    // loader: getUsers,
     children: [
       {
         path: "users/:userId",
         element: <UserPage />,
         loader: userLoader,
+      },
+      {
+        path: "new",
+        element: <UserForm />,
       },
     ],
   },

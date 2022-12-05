@@ -1,4 +1,10 @@
-import { atom, useRecoilValue, useSetRecoilState } from "recoil";
+import { useCallback } from "react";
+import {
+  atom,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 
 export const usersState = atom({
   key: "usersState",
@@ -7,6 +13,11 @@ export const usersState = atom({
     error: null,
     data: [],
   },
+});
+
+export const currentUserState = atom({
+  key: "currentUserState",
+  default: null,
 });
 
 export const useUserStateFunctions = () => {
@@ -36,7 +47,7 @@ export const useUserStateFunctions = () => {
   };
 };
 
-export const useGetUser = (id) => {
+export const useGetUser = (id, select = false) => {
   const users = useRecoilValue(usersState);
   return users.data.find((user) => user.id === id);
 };

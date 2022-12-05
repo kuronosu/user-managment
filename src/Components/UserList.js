@@ -12,7 +12,7 @@ export default function UserList() {
   const users = useRecoilValue(usersState);
   if (users.loading)
     return (
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center mt-5">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2" />
       </div>
     );

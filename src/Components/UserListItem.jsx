@@ -1,22 +1,27 @@
 import tw from "tailwind-styled-components";
 import { Link } from "react-router-dom";
+import { currentUserState } from "../store";
+import { useRecoilValue } from "recoil";
 
 export default function UserListItem({ user }) {
+  const currentUser = useRecoilValue(currentUserState);
   return (
-    <Container $selected={true}>
+    <li>
       <Link to={`users/${user.id}`}>
-        <span>{user.name}</span>
+        <Container $selected={currentUser === user.id}>
+          <span>{user.name}</span>
+        </Container>
       </Link>
-    </Container>
+    </li>
   );
 }
 
-const Container = tw.li`
-  my-2 p-2
+const Container = tw.div`
   flex
-  justify-between
-  items-center 
+  my-2 p-2
   text-base
+  items-center 
+  justify-between
   ${({ $selected }) =>
     $selected &&
     `

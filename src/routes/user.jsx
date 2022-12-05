@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import { Form, Link, useLoaderData } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import PageContainer from "../Components/PageContainer";
-import { useGetUser, usersState } from "../store";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { currentUserState, useGetUser, usersState } from "../store";
 
 export async function loader({ params }) {
   return params.userId;
@@ -10,6 +10,12 @@ export async function loader({ params }) {
 export default function UserPage() {
   const { loading } = useRecoilValue(usersState);
   const user = useGetUser(useLoaderData());
+  const setCurrentUser = useSetRecoilState(currentUserState);
+
+  useEffect(() => {
+    setCurrentUser(user?.id);
+  }, [setCurrentUser, user]);
+
   if (loading) {
     return (
       <div className="w-full h-full flex justify-center items-center">
