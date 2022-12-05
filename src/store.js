@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import {
   atom,
-  useRecoilState,
   useRecoilValue,
   useSetRecoilState,
 } from "recoil";

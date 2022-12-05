@@ -2,8 +2,12 @@ import tw from "tailwind-styled-components";
 import { Link, Outlet } from "react-router-dom";
 import PageContainer from "../Components/PageContainer";
 import UserList from "../Components/UserList";
+import { useResetRecoilState } from "recoil";
+import { currentUserState } from "../store";
 
 export default function Root() {
+  const clearUser = useResetRecoilState(currentUserState);
+
   return (
     <PageContainer>
       <div className="flex flex-row w-full h-full">
@@ -16,7 +20,7 @@ export default function Root() {
               aria-label="Search users"
             />
             <Link to="new">
-              <NewButton>Añadir</NewButton>
+              <NewButton onClick={() => clearUser()}>Añadir</NewButton>
             </Link>
           </div>
           <UserList />

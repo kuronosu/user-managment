@@ -20,7 +20,7 @@ export async function createUser(user) {
 }
 
 export function observeUsers(next, error) {
-  return onSnapshot(query(collection(db, "users"), orderBy("name")), {
+  return onSnapshot(query(collection(db, "users"), orderBy("firstName")), {
     next: (querySnapshot) =>
       next(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))),
     complete: () => console.log("complete"),

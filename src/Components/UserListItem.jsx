@@ -9,7 +9,8 @@ export default function UserListItem({ user }) {
     <li>
       <Link to={`users/${user.id}`}>
         <Container $selected={currentUser === user.id}>
-          <span>{user.name}</span>
+          <span>{user.firstName} {user.lastName}</span>
+          <span>{user.email}</span>
         </Container>
       </Link>
     </li>
@@ -19,9 +20,9 @@ export default function UserListItem({ user }) {
 const Container = tw.div`
   flex
   my-2 p-2
+  flex-col
   text-base
-  items-center 
-  justify-between
+  items-start
   ${({ $selected }) =>
     $selected &&
     `

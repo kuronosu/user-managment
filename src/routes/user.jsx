@@ -30,11 +30,14 @@ export default function UserPage() {
 
   return (
     <div>
-      <span className="text-2xl">{user.name} - </span>
+      <span className="text-2xl">
+        {user.firstName} {user.lastName} -{" "}
+      </span>
       <Link to="edit">Edit</Link>
       <br />
       <span className="text-sm">{user.email}</span>
       <br />
+      <img src={user.avatar} alt="" />
     </div>
   );
 }

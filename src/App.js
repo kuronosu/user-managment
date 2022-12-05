@@ -8,6 +8,7 @@ import { useUserStateFunctions } from "./store";
 import ErrorPage from "./routes/ErrorPage";
 import UserPage, { loader as userLoader } from "./routes/user";
 import UserForm from "./Components/UserForm";
+import New from "./routes/new";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       },
       {
         path: "new",
-        element: <UserForm />,
+        element: <New />,
       },
     ],
   },
