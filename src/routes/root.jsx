@@ -11,7 +11,7 @@ export default function Root() {
   return (
     <PageContainer>
       <div className="flex flex-row w-full h-full">
-        <div className="w-1/4 border-r border-neutral-700 h-full py-4 max-h-full flex-col min-h-full">
+        <div className="w-1/4 border-r border-neutral-700 h-full py-4 max-h-full flex-col min-h-full min-w-[350px]">
           <div className="flex justify-between items-center pb-5 px-4 border-b border-neutral-700">
             <SearchInput
               name="q"
