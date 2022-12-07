@@ -32,7 +32,7 @@ export default function UserPage() {
   return (
     <div className="flex mt-3 ml-4 ">
       <div className="w-60 h-60 overflow-hidden rounded-xl mr-5 " >
-        <img className="w-full h-full" src={user.avatar} alt="" />
+        <img className="w-full h-full object-cover" src={user.avatar} alt="" />
       </div>
       <div className="flex-col" >
         <h1 className=" inline text-2xl font-bold tracking-wider">

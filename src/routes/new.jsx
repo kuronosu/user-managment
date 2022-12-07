@@ -14,7 +14,7 @@ function uuidv4() {
   );
 }
 
-export default function New() {
+export default function NewPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   return (

@@ -30,8 +30,7 @@ export function observeUsers(next, error) {
 
 export async function updateUser(id, user) {
   try {
-    const docRef = await updateDoc(doc(db, "users", id), user);
-    return docRef.id;
+    await updateDoc(doc(db, "users", id), user);
   } catch (e) {
     throw e;
   }

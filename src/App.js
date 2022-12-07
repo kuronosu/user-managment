@@ -7,8 +7,8 @@ import Root from "./routes/root";
 import { useUserStateFunctions } from "./store";
 import ErrorPage from "./routes/ErrorPage";
 import UserPage, { loader as userLoader } from "./routes/user";
-import UserForm from "./Components/UserForm";
-import New from "./routes/new";
+import NewPage from "./routes/new";
+import EditPage from "./routes/edit";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +22,13 @@ const router = createBrowserRouter([
         loader: userLoader,
       },
       {
+        path: "users/:userId/edit",
+        element: <EditPage />,
+        loader: userLoader,
+      },
+      {
         path: "new",
-        element: <New />,
+        element: <NewPage />,
       },
     ],
   },

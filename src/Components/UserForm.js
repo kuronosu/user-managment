@@ -1,32 +1,48 @@
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import tw from "tailwind-styled-components";
-import { useRef, useState } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const FormSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .min(2, "Demasiado corto")
-    .max(50, "Muy largo")
-    .required("Campo requerido"),
-  lastName: Yup.string()
-    .min(2, "Demasiado corto")
-    .max(50, "Muy largo")
-    .required("Campo requerido"),
-  email: Yup.string()
-    .email("Correo electrónico inválido")
-    .required("Campo requerido"),
-  phone: Yup.string().required("Campo requerido"),
-  description: Yup.string(),
-  avatar: Yup.mixed()
+const ValidationSchema = (edit) => {
+  let avatar = Yup.mixed()
     .required("Campo requerido")
     .test("fileSize", "Archivo demasiado grande", (value) => {
       return value && value.size <= 2000000;
     })
     .test("fileFormat", "Solo se admiten imágenes", (value) => {
       return value && value.type.startsWith("image/");
-    }),
-});
+    });
+  if (edit) {
+    avatar = Yup.mixed()
+      .test("fileSize", "Archivo demasiado grande", (value) => {
+        if (value && value.size) return value && value.size <= 2000000;
+        return true;
+      })
+      .test("fileFormat", "Solo se admiten imágenes", (value) => {
+        if (value && value.type)
+          return value && value.type.startsWith("image/");
+        return true;
+      });
+  }
+
+  return Yup.object().shape({
+    firstName: Yup.string()
+      .min(2, "Demasiado corto")
+      .max(50, "Muy largo")
+      .required("Campo requerido"),
+    lastName: Yup.string()
+      .min(2, "Demasiado corto")
+      .max(50, "Muy largo")
+      .required("Campo requerido"),
+    email: Yup.string()
+      .email("Correo electrónico inválido")
+      .required("Campo requerido"),
+    phone: Yup.string().required("Campo requerido"),
+    description: Yup.string(),
+
+    avatar: avatar,
+  });
+};
 
 const EmailIcon = () => (
   <svg
@@ -45,6 +61,7 @@ export default function UserForm({
   onSubmit,
   title,
   loading,
+  isEditForm = false,
   initialValues = {
     firstName: "",
     lastName: "",
@@ -55,22 +72,13 @@ export default function UserForm({
   },
 }) {
   const [submmited, setSubmmited] = useState(false);
-  const navigate = useNavigate();
-
-  // const [avatar, setAvatar] = useState(null);
-
-  // const onAvatarChange = (e) => {
-  //   let files = e.target.files;
-  //   setFieldValue("file", event.currentTarget.files[0]);
-  //   setAvatar(files[0]);
-  // };
 
   return (
     <div className="px-8 py-6">
       <h1 className="text-2xl mb-4">{title}</h1>
       <Formik
         initialValues={initialValues}
-        validationSchema={FormSchema}
+        validationSchema={ValidationSchema(isEditForm)}
         onSubmit={onSubmit}
       >
         {({ errors, setFieldValue, values }) => (
