@@ -6,6 +6,7 @@ import { uploadAvatar } from "../storage";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentUserState, useGetUser, usersState } from "../store";
 import { useEffect } from "react";
+import UserNotFound from "../Components/UserNotFound";
 
 export default function EditPage() {
   const [formLoading, setFormLoading] = useState(false);
@@ -28,7 +29,7 @@ export default function EditPage() {
   }
 
   if (!user) {
-    return <p>User not found</p>;
+    return <UserNotFound />;
   }
 
   return (

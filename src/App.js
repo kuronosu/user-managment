@@ -9,6 +9,7 @@ import ErrorPage from "./routes/ErrorPage";
 import UserPage, { loader as userLoader } from "./routes/user";
 import NewPage from "./routes/new";
 import EditPage from "./routes/edit";
+import DeletePage from "./routes/delete";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "new",
+        element: <NewPage />,
+      },
       {
         path: "users/:userId",
         element: <UserPage />,
@@ -27,8 +32,9 @@ const router = createBrowserRouter([
         loader: userLoader,
       },
       {
-        path: "new",
-        element: <NewPage />,
+        path: "users/:userId/delete",
+        element: <DeletePage />,
+        loader: userLoader,
       },
     ],
   },

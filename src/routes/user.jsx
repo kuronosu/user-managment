@@ -3,6 +3,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentUserState, useGetUser, usersState } from "../store";
 import tw from "tailwind-styled-components";
+import UserNotFound from "../Components/UserNotFound";
 
 export async function loader({ params }) {
   return params.userId;
@@ -26,7 +27,7 @@ export default function UserPage() {
   }
 
   if (!user) {
-    return <p>User not found</p>;
+    return <UserNotFound />;
   }
 
   return (
@@ -38,12 +39,12 @@ export default function UserPage() {
         <h1 className=" inline text-2xl font-bold tracking-wider">
           {user.firstName} {user.lastName}{" "}
         </h1>
-        <EditBurron>
+        <Button>
           <Link to="edit">Editar</Link>
-        </EditBurron>
-        <EditBurron>
-          <Link to="edit">Borrar</Link>
-        </EditBurron>
+        </Button>
+        <Button>
+          <Link to="delete">Borrar</Link>
+        </Button>
         <p className=" text-blue-400 ">{user.email}</p>
         <p className="mb-4">{user.phone}</p>
         <p className="text-sm mb-2">
@@ -54,7 +55,7 @@ export default function UserPage() {
   );
 }
 
-const EditBurron = tw.button`
+export const Button = tw.button`
 font-bold py-2 px-2
 mr-2
 rounded-md inline-flex items-center

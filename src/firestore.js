@@ -38,8 +38,7 @@ export async function updateUser(id, user) {
 
 export async function deleteUser(id) {
   try {
-    const docRef = await deleteDoc(doc(db, "users", id));
-    return docRef.id;
+    await deleteDoc(doc(db, "users", id));
   } catch (e) {
     throw e;
   }
