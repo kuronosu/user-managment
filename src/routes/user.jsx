@@ -48,7 +48,7 @@ export default function UserPage() {
         <p className=" text-blue-400 ">{user.email}</p>
         <p className="mb-4">{user.phone}</p>
         <p className="text-sm mb-2">
-          {user.description !== "" ? user.description : "No descripcion"}
+          {user.description !== "" ? user.description : "Sin estado"}
         </p>
       </div>
     </div>
