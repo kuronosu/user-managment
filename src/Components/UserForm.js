@@ -169,7 +169,6 @@ export default function UserForm({
               <div className="w-4/5 flex">
                 <div className="flex flex-1 flex-col">
                   <Field
-                    required
                     id="description"
                     type="description"
                     name="description"
