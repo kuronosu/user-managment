@@ -19,7 +19,7 @@ export default function NewPage() {
   const navigate = useNavigate();
   return (
     <UserForm
-      title="New User"
+      title="Agregar usuarios"
       loading={loading}
       onSubmit={(data) => {
         setLoading(true);
