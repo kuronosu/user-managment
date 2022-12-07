@@ -39,7 +39,6 @@ const ValidationSchema = (edit) => {
       .required("Campo requerido"),
     phone: Yup.string().required("Campo requerido"),
     description: Yup.string(),
-
     avatar: avatar,
   });
 };
@@ -156,6 +155,29 @@ export default function UserForm({
                     placeholder="+54 351 1234567"
                   />
                   <ErrorSpan>{submmited && errors.phone}</ErrorSpan>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-row items-center mb-5 w-full">
+              <label
+                className="font-medium text-white w-1/5 text-lg"
+                htmlFor="description"
+              >
+                Estado
+              </label>
+              <div className="w-4/5 flex">
+                <div className="flex flex-1 flex-col">
+                  <Field
+                    required
+                    id="description"
+                    type="description"
+                    name="description"
+                    disabled={loading}
+                    className="p-2.5 flex-1 bg-transparent border-b-2 focus:outline-none  text-white border-neutral-500 focus:border-neutral-200"
+                    placeholder="Vivo"
+                  />
+                  <ErrorSpan>{submmited && errors.description}</ErrorSpan>
                 </div>
               </div>
             </div>
